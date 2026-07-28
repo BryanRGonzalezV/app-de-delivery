@@ -101,6 +101,11 @@ function loadCart() {
 
 // Añadir producto al carrito
 function addToCart(name, price, img) {
+    if (!name || !price || !img) {
+        console.error('Faltan datos para añadir al carrito:', {name, price, img});
+        return;
+    }
+    
     const existingItem = cart.find(item => item.name === name);
     
     if (existingItem) {
@@ -209,10 +214,10 @@ function updateCartUI() {
                         <p class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
                     </div>
                     <div class="cart-item-actions">
-                        <button onclick="changeQuantity('${item.name}', -1)">−</button>
+                        <button onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
                         <span class="cart-item-qty">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.name}', 1)">+</button>
-                        <button class="cart-item-remove" onclick="removeFromCart('${item.name}')">✕</button>
+                        <button onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+                        <button class="cart-item-remove" onclick="removeFromCart('${item.name.replace(/'/g, "\\'")}')">✕</button>
                     </div>
                 </div>
             `;
@@ -256,52 +261,52 @@ checkoutBtn.addEventListener('click', function() {
     closeCart();
 });
 
-// ==============================================
-// ===== BOTONES DE PRODUCTOS - CORREGIDO ======
-// ==============================================
+// ============================================================
+// ===== BOTONES DE PRODUCTOS - CORREGIDO CON CLOSEST() ======
+// ============================================================
 
-// Usamos event delegation para capturar TODOS los botones
-// incluso los que se crean dinámicamente
-
-// 1. Botones "Añadir al Carrito" de productos (todos)
+// 1. Botones "Añadir al Carrito" - SOLUCIÓN: usar closest()
 document.addEventListener('click', function(e) {
-    // Buscar el botón más cercano con la clase btn-add-cart
-    const addButton = e.target.closest('.btn-add-cart');
-    if (addButton) {
+    // Busca el botón más cercano con la clase btn-add-cart
+    const button = e.target.closest('.btn-add-cart');
+    if (button) {
         e.preventDefault();
-        const name = addButton.getAttribute('data-name');
-        const price = addButton.getAttribute('data-price');
-        const img = addButton.getAttribute('data-img');
+        const name = button.getAttribute('data-name');
+        const price = button.getAttribute('data-price');
+        const img = button.getAttribute('data-img');
         
+        // Verificar que todos los datos existan
         if (name && price && img) {
             addToCart(name, price, img);
         } else {
-            console.error('Faltan datos en el botón:', addButton);
+            console.error('❌ Botón sin datos:', button);
+            showNotification('⚠️ Error: faltan datos del producto');
         }
     }
 });
 
-// 2. Botones "Comprar" del slider
+// 2. Botones "Comprar" del slider - SOLUCIÓN: usar closest()
 document.addEventListener('click', function(e) {
-    const buyButton = e.target.closest('.btn-comprar');
-    if (buyButton) {
+    const button = e.target.closest('.btn-comprar');
+    if (button) {
         e.preventDefault();
-        const name = buyButton.getAttribute('data-name');
-        const price = buyButton.getAttribute('data-price');
-        const img = buyButton.getAttribute('data-img');
+        const name = button.getAttribute('data-name');
+        const price = button.getAttribute('data-price');
+        const img = button.getAttribute('data-img');
         
         if (name && price && img) {
             addToCart(name, price, img);
         } else {
-            console.error('Faltan datos en el botón comprar:', buyButton);
+            console.error('❌ Botón comprar sin datos:', button);
+            showNotification('⚠️ Error: faltan datos del producto');
         }
     }
 });
 
 // 3. Botones "Menú" - scroll suave
 document.addEventListener('click', function(e) {
-    const menuButton = e.target.closest('.btn-1');
-    if (menuButton && menuButton.getAttribute('href') === '#products') {
+    const button = e.target.closest('.btn-1');
+    if (button && button.getAttribute('href') === '#products') {
         e.preventDefault();
         const productsSection = document.getElementById('products');
         if (productsSection) {
@@ -341,3 +346,6 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+console.log('🛒 Carrito de compras cargado correctamente');
+console.log('📦 Productos disponibles: 9');
