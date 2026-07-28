@@ -1,289 +1,77 @@
-// ============ SWIPER CONFIGURACIÓN ============
-var swiper = new Swiper(".mySwiper-1", {
-    slidesPerView: 1,
+// Swiper inicialization
+var swiper = new Swiper(".mySwiper-1"  , {
+    slidesPerView:1,
     spaceBetween: 30,
-    loop: true,
+    loop:true,
     pagination: {
-        el: ".swiper-pagination",
+
+        el:".swiper-pagination",
         clickable: true,
     },
     navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    }
-});
+        nextEl:".swiper-button-next",
+        prevEl:".swiper-button-prev",
 
-var swiper = new Swiper(".mySwiper-2", {
-    slidesPerView: 1,
+    }
+
+
+
+}) ;
+
+var swiper = new Swiper(".mySwiper-2"  , {
+    slidesPerView:1,
     spaceBetween: 20,
-    loop: true,
-    loopFillGroupWithBlank: true,
+    loop:true,
+    loopFillGroupWithBlank:true,
     navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+        nextEl:".swiper-button-next",
+        prevEl:".swiper-button-prev",
+
     },
-    breakpoints: {
-        0: { slidesPerView: 1 },
-        520: { slidesPerView: 2 },
-        950: { slidesPerView: 3 }
-    }
-});
 
-// ============ TABS ============
-let tabInputs = document.querySelectorAll(".tabInput");
-tabInputs.forEach(function(input) {
-    input.addEventListener("change", function() {
-        let id = input.value;
-        let thisSwiper = document.getElementById("swiper" + id);
-        if (thisSwiper && thisSwiper.swiper) {
-            thisSwiper.swiper.update();
-        }
-    });
-});
-
-// ============ CARRITO DE COMPRAS ============
-let cart = [];
-let cartCount = 0;
-let cartTotal = 0;
-
-// Elementos del DOM
-const cartOverlay = document.getElementById('cartOverlay');
-const cartSidebar = document.getElementById('cartSidebar');
-const cartItems = document.getElementById('cartItems');
-const cartTotalElement = document.getElementById('cartTotal');
-const cartCountElement = document.getElementById('cartCount');
-const cartFloatBtn = document.getElementById('cartFloatBtn');
-const closeCartBtn = document.getElementById('closeCart');
-const checkoutBtn = document.getElementById('checkoutBtn');
-
-// Modal elementos
-const checkoutModal = document.getElementById('checkoutModal');
-const closeModalBtn = document.getElementById('closeModal');
-const checkoutForm = document.getElementById('checkoutForm');
-const checkoutFormContainer = document.getElementById('checkoutFormContainer');
-const orderConfirmation = document.getElementById('orderConfirmation');
-const orderDetails = document.getElementById('orderDetails');
-const closeConfirmBtn = document.getElementById('closeConfirmBtn');
-
-// ============ FUNCIONES DEL CARRITO ============
-
-// Agregar producto al carrito
-function addToCart(productName, productPrice) {
-    // Buscar si el producto ya existe en el carrito
-    const existingItem = cart.find(item => item.name === productName);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({
-            name: productName,
-            price: parseFloat(productPrice),
-            quantity: 1
-        });
-    }
-    
-    updateCart();
-    showCart();
-}
-
-// Eliminar producto del carrito
-function removeFromCart(productName) {
-    cart = cart.filter(item => item.name !== productName);
-    updateCart();
-}
-
-// Actualizar cantidad de un producto
-function updateQuantity(productName, change) {
-    const item = cart.find(item => item.name === productName);
-    if (item) {
-        item.quantity += change;
-        if (item.quantity <= 0) {
-            removeFromCart(productName);
-        } else {
-            updateCart();
+    breakpoints : {
+        0: {
+            slidesPerView:1,
+        },
+        520: {
+            slidesPerView:2,
+        },
+        950: {
+            slidesPerView:3,
         }
     }
-}
 
-// Actualizar la interfaz del carrito
-function updateCart() {
-    cartItems.innerHTML = '';
-    cartTotal = 0;
-    cartCount = 0;
-    
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<p class="empty-cart-msg">El carrito está vacío</p>';
-    } else {
-        cart.forEach(item => {
-            cartCount += item.quantity;
-            cartTotal += item.price * item.quantity;
-            
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'cart-item';
-            itemDiv.innerHTML = `
-                <div class="cart-item-info">
-                    <span class="cart-item-name">${item.name}</span>
-                    <span class="cart-item-price">$${item.price.toFixed(2)} c/u</span>
-                </div>
-                <div class="cart-item-actions">
-                    <button onclick="updateQuantity('${item.name}', -1)">-</button>
-                    <span class="cart-item-qty">${item.quantity}</span>
-                    <button onclick="updateQuantity('${item.name}', 1)">+</button>
-                    <button class="cart-item-remove" onclick="removeFromCart('${item.name}')">✕</button>
-                </div>
-            `;
-            cartItems.appendChild(itemDiv);
-        });
-    }
-    
-    // Actualizar total y contador
-    cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
-    cartCountElement.textContent = cartCount;
-    
-    // Guardar en localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
 
-// Mostrar/ocultar carrito
-function showCart() {
-    cartOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
 
-function hideCart() {
-    cartOverlay.classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
+}) ;
 
-// ============ EVENTOS DEL CARRITO ============
+let tabInputs = document.querySelectorAll (".tabInput");
 
-// Botones "Agregar al carrito"
-document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        const product = this.closest('.product');
-        const name = product.getAttribute('data-name') || product.querySelector('.product-txt h4').textContent;
-        const priceText = product.querySelector('.price').textContent;
-        const price = parseFloat(priceText.replace('$', '').replace(',', ''));
-        addToCart(name, price);
-        
-        // Animación de feedback
-        this.textContent = '✓ Agregado';
-        this.style.backgroundColor = '#28a745';
-        this.style.borderColor = '#28a745';
-        setTimeout(() => {
-            this.textContent = 'Agregar';
-            this.style.backgroundColor = '';
-            this.style.borderColor = '';
-        }, 1500);
-    });
-});
+tabInputs.forEach(function(input){ 
 
-// Abrir carrito
-cartFloatBtn.addEventListener('click', showCart);
+input.addEventListener("change", function (){
+    let id= input.ariaValueMax;
+    let thisSwiper = document.getElementById("swiper" + id);
+    thisSwiper.swiper.update();
 
-// Cerrar carrito
-closeCartBtn.addEventListener('click', hideCart);
 
-// Cerrar carrito al hacer clic fuera
-cartOverlay.addEventListener('click', function(e) {
-    if (e.target === this) {
-        hideCart();
-    }
-});
+})
 
-// ============ PROCESO DE COMPRA ============
 
-// Abrir modal de checkout
-checkoutBtn.addEventListener('click', function() {
-    if (cart.length === 0) {
-        alert('El carrito está vacío. Agrega productos antes de comprar.');
-        return;
-    }
-    hideCart();
-    checkoutModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    // Resetear formulario
-    checkoutForm.reset();
-    checkoutFormContainer.style.display = 'block';
-    orderConfirmation.style.display = 'none';
-});
+}); 
 
-// Cerrar modal
-closeModalBtn.addEventListener('click', function() {
-    checkoutModal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-});
-
-// Cerrar modal al hacer clic fuera
-checkoutModal.addEventListener('click', function(e) {
-    if (e.target === this) {
-        checkoutModal.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Cerrar confirmación
-closeConfirmBtn.addEventListener('click', function() {
-    checkoutModal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-    // Vaciar carrito después de la compra
-    cart = [];
-    updateCart();
-});
-
-// Enviar formulario de compra
-checkoutForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Obtener datos del formulario
-    const nombre = document.getElementById('dirNombre').value.trim();
-    const calle = document.getElementById('dirCalle').value.trim();
-    const ciudad = document.getElementById('dirCiudad').value.trim();
-    const telefono = document.getElementById('dirTelefono').value.trim();
-    const notas = document.getElementById('dirNotas').value.trim();
-    
-    // Validar campos
-    if (!nombre || !calle || !ciudad || !telefono) {
-        alert('Por favor, completa todos los campos obligatorios.');
-        return;
-    }
-    
-    // Mostrar confirmación
-    checkoutFormContainer.style.display = 'none';
-    orderConfirmation.style.display = 'block';
-    
-    // Mostrar detalles del pedido
-    let productosHtml = '';
-    cart.forEach(item => {
-        productosHtml += `<p>• ${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</p>`;
-    });
-    
-    orderDetails.innerHTML = `
-        <p><strong>Cliente:</strong> ${nombre}</p>
-        <p><strong>Dirección:</strong> ${calle}, ${ciudad}</p>
-        <p><strong>Teléfono:</strong> ${telefono}</p>
-        ${notas ? `<p><strong>Notas:</strong> ${notas}</p>` : ''}
-        <hr style="border-color: #333; margin: 12px 0;">
-        <p><strong>Productos:</strong></p>
-        ${productosHtml}
-        <hr style="border-color: #333; margin: 12px 0;">
-        <p><strong>Total:</strong> $${cartTotal.toFixed(2)}</p>
-    `;
-});
-
-// ============ CONTACTO FORM ============
+// Contact form
 const contactForm = document.getElementById('contactForm');
 const formResponse = document.getElementById('form-response');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(event) {
         event.preventDefault();
-        
-        formResponse.textContent = '¡Gracias por tu mensaje! Te contactaremos pronto.';
+
+        formResponse.textContent = 'Thank you for your message! We will get back to you soon.';
         formResponse.className = 'mt-4 text-center text-green-600 font-medium';
         contactForm.reset();
-        
+
         setTimeout(() => {
             formResponse.textContent = '';
             formResponse.className = 'mt-4 text-center';
@@ -291,28 +79,243 @@ if (contactForm) {
     });
 }
 
-// ============ CARGAR CARRITO DESDE LOCALSTORAGE ============
-window.addEventListener('DOMContentLoaded', function() {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-        try {
-            cart = JSON.parse(savedCart);
-            updateCart();
-        } catch (e) {
-            console.log('Error al cargar el carrito');
-        }
+// ===================== CARRITO DE COMPRAS =====================
+
+// Estado del carrito
+let cart = [];
+
+// Elementos del carrito
+const cartToggle = document.getElementById('cart-toggle');
+const cartPanel = document.getElementById('cart-panel');
+const cartClose = document.getElementById('cart-close');
+const cartItems = document.getElementById('cart-items');
+const cartTotal = document.getElementById('cart-total');
+const cartCount = document.getElementById('cart-count');
+const checkoutBtn = document.getElementById('cart-checkout');
+
+// Elementos del modal de dirección
+const addressModal = document.getElementById('address-modal');
+const addressClose = document.getElementById('address-close');
+const addressForm = document.getElementById('address-form');
+
+// Elementos del modal de confirmación
+const confirmModal = document.getElementById('confirm-modal');
+const confirmClose = document.getElementById('confirm-close');
+const confirmDetails = document.getElementById('confirm-details');
+const timerCountdown = document.getElementById('timer-countdown');
+
+// Abrir/cerrar carrito
+cartToggle.addEventListener('click', () => {
+    cartPanel.classList.toggle('active');
+});
+
+cartClose.addEventListener('click', () => {
+    cartPanel.classList.remove('active');
+});
+
+// Cerrar carrito al hacer clic fuera
+document.addEventListener('click', (e) => {
+    if (!cartPanel.contains(e.target) && e.target !== cartToggle) {
+        cartPanel.classList.remove('active');
     }
 });
 
-// ============ TECLADO: ESC para cerrar ============
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        if (cartOverlay.classList.contains('active')) {
-            hideCart();
+// Añadir producto al carrito
+document.querySelectorAll('.btn-add-cart').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const name = button.dataset.name;
+        const price = parseFloat(button.dataset.price);
+        const img = button.dataset.img;
+
+        // Verificar si el producto ya está en el carrito
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name, price, img, quantity: 1 });
         }
-        if (checkoutModal.classList.contains('active')) {
-            checkoutModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
+
+        updateCartUI();
+        showNotification(`${name} añadido al carrito!`);
+    });
+});
+
+// Actualizar UI del carrito
+function updateCartUI() {
+    // Actualizar contador
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+
+    // Actualizar lista de items
+    cartItems.innerHTML = '';
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p class="empty-cart">El carrito está vacío</p>';
+        cartTotal.textContent = '$0.00';
+        return;
+    }
+
+    let total = 0;
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <img src="${item.img}" alt="${item.name}" class="cart-item-img">
+            <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <span>$${item.price.toFixed(2)} x ${item.quantity}</span>
+                <span class="cart-item-total">$${itemTotal.toFixed(2)}</span>
+            </div>
+            <button class="cart-remove" data-index="${index}">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        `;
+        cartItems.appendChild(div);
+    });
+
+    // Eventos para eliminar items
+    document.querySelectorAll('.cart-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const index = parseInt(btn.dataset.index);
+            cart.splice(index, 1);
+            updateCartUI();
+        });
+    });
+
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+}
+
+// Notificación temporal
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'cart-notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 2000);
+}
+
+// Función para cerrar todos los modales
+function closeAllModals() {
+    addressModal.classList.remove('active');
+    confirmModal.classList.remove('active');
+}
+
+// Abrir modal de dirección
+checkoutBtn.addEventListener('click', () => {
+    if (cart.length === 0) {
+        showNotification('El carrito está vacío');
+        return;
+    }
+    addressModal.classList.add('active');
+    cartPanel.classList.remove('active');
+});
+
+// Cerrar modal de dirección
+addressClose.addEventListener('click', closeAllModals);
+
+// Cerrar modal al hacer clic fuera
+addressModal.addEventListener('click', (e) => {
+    if (e.target === addressModal) closeAllModals();
+});
+
+// Enviar dirección
+addressForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('address-name').value.trim();
+    const street = document.getElementById('address-street').value.trim();
+    const city = document.getElementById('address-city').value.trim();
+    const phone = document.getElementById('address-phone').value.trim();
+
+    if (!name || !street || !city || !phone) {
+        showNotification('Por favor completa todos los campos');
+        return;
+    }
+
+    // Cerrar modal de dirección
+    addressModal.classList.remove('active');
+
+    // Mostrar confirmación
+    showConfirmation({ name, street, city, phone });
+});
+
+// Mostrar confirmación
+function showConfirmation(address) {
+    let itemsHTML = cart.map(item => 
+        `<li>${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`
+    ).join('');
+
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    confirmDetails.innerHTML = `
+        <div class="confirm-address">
+            <h4>📦 Datos de envío</h4>
+            <p><strong>Nombre:</strong> ${address.name}</p>
+            <p><strong>Dirección:</strong> ${address.street}, ${address.city}</p>
+            <p><strong>Teléfono:</strong> ${address.phone}</p>
+        </div>
+        <div class="confirm-items">
+            <h4>🛒 Productos</h4>
+            <ul>${itemsHTML}</ul>
+            <p class="confirm-total"><strong>Total:</strong> $${total.toFixed(2)}</p>
+        </div>
+    `;
+
+    confirmModal.classList.add('active');
+
+    // Iniciar contador de 15 minutos
+    let minutes = 15;
+    let seconds = 0;
+    timerCountdown.textContent = '15:00';
+
+    const timerInterval = setInterval(() => {
+        seconds--;
+        if (seconds < 0) {
+            minutes--;
+            seconds = 59;
         }
+        if (minutes < 0) {
+            clearInterval(timerInterval);
+            timerCountdown.textContent = '¡Listo!';
+            return;
+        }
+        timerCountdown.textContent = 
+            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }, 1000);
+
+    // Vaciar carrito después de confirmar
+    cart = [];
+    updateCartUI();
+
+    // Guardar referencia al intervalo para limpiarlo
+    confirmModal._timerInterval = timerInterval;
+}
+
+// Cerrar modal de confirmación
+confirmClose.addEventListener('click', () => {
+    if (confirmModal._timerInterval) {
+        clearInterval(confirmModal._timerInterval);
+    }
+    confirmModal.classList.remove('active');
+});
+
+// Cerrar confirmación al hacer clic fuera
+confirmModal.addEventListener('click', (e) => {
+    if (e.target === confirmModal) {
+        if (confirmModal._timerInterval) {
+            clearInterval(confirmModal._timerInterval);
+        }
+        confirmModal.classList.remove('active');
     }
 });
+
+// ================================================================
