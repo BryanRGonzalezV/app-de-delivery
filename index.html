@@ -371,7 +371,7 @@
         </div>
     </footer>
 
-    <!-- CARRITO LATERAL -->
+    <!-- ============ CARRITO LATERAL ============ -->
     <div id="cartOverlay" class="cart-overlay">
         <div id="cartSidebar" class="cart-sidebar">
             <div class="cart-header">
@@ -391,35 +391,35 @@
         </div>
     </div>
 
-    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <!-- ============ BOTÓN FLOTANTE DEL CARRITO ============ -->
     <button id="cartFloatBtn" class="cart-float-btn">
         <i class="fas fa-shopping-cart"></i>
         <span id="cartCount" class="cart-count">0</span>
     </button>
 
-    <!-- MODAL DE COMPRA -->
+    <!-- ============ MODAL DE COMPRA ============ -->
     <div id="checkoutModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Datos de Envío</h2>
+                <h2>📦 Datos de Envío</h2>
                 <button id="closeModal" class="close-modal">✕</button>
             </div>
             <div id="checkoutFormContainer">
                 <form id="checkoutForm">
                     <div class="form-group">
-                        <label for="dirNombre">Nombre Completo</label>
+                        <label for="dirNombre">Nombre Completo *</label>
                         <input type="text" id="dirNombre" placeholder="Juan Pérez" required>
                     </div>
                     <div class="form-group">
-                        <label for="dirCalle">Calle y Número</label>
+                        <label for="dirCalle">Calle y Número *</label>
                         <input type="text" id="dirCalle" placeholder="Av. Principal #123" required>
                     </div>
                     <div class="form-group">
-                        <label for="dirCiudad">Ciudad</label>
+                        <label for="dirCiudad">Ciudad *</label>
                         <input type="text" id="dirCiudad" placeholder="Santo Domingo" required>
                     </div>
                     <div class="form-group">
-                        <label for="dirTelefono">Teléfono</label>
+                        <label for="dirTelefono">Teléfono *</label>
                         <input type="text" id="dirTelefono" placeholder="809-555-1234" required>
                     </div>
                     <div class="form-group">
@@ -437,7 +437,7 @@
                     <i class="fas fa-clock"></i>
                     <span>Tiempo estimado de espera: <strong>20-30 minutos</strong></span>
                 </div>
-                <button id="closeConfirmBtn" class="btn-1" style="margin-top:20px;">Cerrar</button>
+                <button id="closeConfirmBtn" class="btn-1" style="width:100%; text-align:center; margin-top:20px;">Cerrar</button>
             </div>
         </div>
     </div>
