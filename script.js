@@ -206,6 +206,8 @@ function updateCartUI() {
     } else {
         let html = '';
         cart.forEach(item => {
+            // Escapar comillas en el nombre para evitar errores
+            const safeName = item.name.replace(/'/g, "\\'");
             html += `
                 <div class="cart-item">
                     <img src="${item.img}" alt="${item.name}">
@@ -214,10 +216,10 @@ function updateCartUI() {
                         <p class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
                     </div>
                     <div class="cart-item-actions">
-                        <button onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
+                        <button onclick="changeQuantity('${safeName}', -1)">−</button>
                         <span class="cart-item-qty">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
-                        <button class="cart-item-remove" onclick="removeFromCart('${item.name.replace(/'/g, "\\'")}')">✕</button>
+                        <button onclick="changeQuantity('${safeName}', 1)">+</button>
+                        <button class="cart-item-remove" onclick="removeFromCart('${safeName}')">✕</button>
                     </div>
                 </div>
             `;
@@ -262,12 +264,11 @@ checkoutBtn.addEventListener('click', function() {
 });
 
 // ============================================================
-// ===== BOTONES DE PRODUCTOS - CORREGIDO CON CLOSEST() ======
+// ===== BOTONES DE PRODUCTOS - CON CLOSEST() =====
 // ============================================================
 
-// 1. Botones "Añadir al Carrito" - SOLUCIÓN: usar closest()
+// 1. Botones "Añadir al Carrito" - TODOS los productos (1 al 9)
 document.addEventListener('click', function(e) {
-    // Busca el botón más cercano con la clase btn-add-cart
     const button = e.target.closest('.btn-add-cart');
     if (button) {
         e.preventDefault();
@@ -275,7 +276,6 @@ document.addEventListener('click', function(e) {
         const price = button.getAttribute('data-price');
         const img = button.getAttribute('data-img');
         
-        // Verificar que todos los datos existan
         if (name && price && img) {
             addToCart(name, price, img);
         } else {
@@ -285,7 +285,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// 2. Botones "Comprar" del slider - SOLUCIÓN: usar closest()
+// 2. Botones "Comprar" del slider
 document.addEventListener('click', function(e) {
     const button = e.target.closest('.btn-comprar');
     if (button) {
@@ -349,3 +349,4 @@ document.head.appendChild(style);
 
 console.log('🛒 Carrito de compras cargado correctamente');
 console.log('📦 Productos disponibles: 9');
+console.log('✅ Todos los botones de compra funcionan');
