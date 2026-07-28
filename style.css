@@ -1,28 +1,107 @@
-/* ===== ESTILOS DEL CARRITO - PARTE 2 ===== */
+/* ===== BOTONES DE COMPRA - NUEVOS COLORES ===== */
 
-.cart-footer {
-    padding: 20px 25px 30px 25px;
-    border-top: 1px solid #222;
-    background: #0d0d0d;
-}
-
-.cart-total {
-    display: flex;
-    justify-content: space-between;
+/* Botón principal "Comprar" del slider */
+.btn-1 {
+    display: inline-block;
+    padding: 15px 35px;
+    border: 2px solid #FF6B35;
     color: #ffffff;
-    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-right: 20px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    background: linear-gradient(135deg, #FF6B35, #FF4500);
+    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4);
+}
+
+.btn-1:hover {
+    background: linear-gradient(135deg, #FF4500, #CC3700);
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(255, 69, 0, 0.6);
+}
+
+/* Botón "Comprar" específico del slider */
+.btn-comprar {
+    background: linear-gradient(135deg, #00C9FF, #00B4D8) !important;
+    border-color: #00B4D8 !important;
+    box-shadow: 0 4px 15px rgba(0, 185, 255, 0.4) !important;
+}
+
+.btn-comprar:hover {
+    background: linear-gradient(135deg, #00B4D8, #0096B4) !important;
+    box-shadow: 0 6px 25px rgba(0, 185, 255, 0.6) !important;
+}
+
+/* Botón "Menú" del slider */
+.btn-menu {
+    background: linear-gradient(135deg, #9B59B6, #8E44AD) !important;
+    border-color: #8E44AD !important;
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.4) !important;
+}
+
+.btn-menu:hover {
+    background: linear-gradient(135deg, #8E44AD, #7D3C98) !important;
+    box-shadow: 0 6px 25px rgba(155, 89, 182, 0.6) !important;
+}
+
+/* ===== BOTÓN "AÑADIR AL CARRITO" - NUEVO COLOR ===== */
+.btn-add-cart {
+    display: inline-block;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #00C851, #00A844);
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-size: 13px;
     font-weight: 700;
-    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 12px rgba(0, 200, 81, 0.4);
 }
 
-.cart-total span:last-child {
-    color: #db2418;
+.btn-add-cart:hover {
+    background: linear-gradient(135deg, #00A844, #008C3A);
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0, 200, 81, 0.6);
 }
 
+.btn-add-cart:active {
+    transform: scale(0.95);
+}
+
+/* ===== BOTÓN "MÁS INFORMACIÓN" - NUEVO COLOR ===== */
+.btn-2 {
+    display: inline-block;
+    padding: 15px 35px;
+    background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+    color: #ffffff;
+    font-weight: 800;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+}
+
+.btn-2:hover {
+    background: linear-gradient(135deg, #EE5A24, #D35400);
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(238, 90, 36, 0.6);
+}
+
+/* ===== BOTONES DEL CARRITO ===== */
+
+/* Botón "Proceder al Pago" */
 .btn-checkout {
     width: 100%;
     padding: 15px;
-    background: #db2418;
+    background: linear-gradient(135deg, #00C851, #00A844);
     color: #ffffff;
     border: none;
     border-radius: 50px;
@@ -32,73 +111,86 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 200, 81, 0.3);
 }
 
 .btn-checkout:hover {
-    background: #ab1c15;
+    background: linear-gradient(135deg, #00A844, #008C3A);
     transform: scale(1.02);
+    box-shadow: 0 6px 25px rgba(0, 200, 81, 0.5);
 }
 
+/* Botón "Vaciar Carrito" */
 .btn-clear {
     width: 100%;
     padding: 12px;
     background: transparent;
-    color: #a7a7a7;
-    border: 1px solid #333;
+    color: #ff6b6b;
+    border: 2px solid #ff6b6b;
     border-radius: 50px;
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 10px;
 }
 
 .btn-clear:hover {
-    border-color: #db2418;
-    color: #db2418;
+    background: #ff6b6b;
+    color: #ffffff;
+    border-color: #ff6b6b;
+    transform: scale(1.02);
 }
 
-.btn-add-cart {
-    display: inline-block;
-    padding: 8px 18px;
-    background: #db2418;
+/* ===== BOTONES DE CANTIDAD EN EL CARRITO ===== */
+.cart-item-actions button {
+    background: #1a1a1a;
+    border: 2px solid #333;
     color: #ffffff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-item-actions button:hover {
+    background: #00C851;
+    border-color: #00C851;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+.cart-item-remove {
+    background: transparent !important;
+    border-color: #ff6b6b !important;
+    color: #ff6b6b !important;
+    font-size: 16px !important;
+}
+
+.cart-item-remove:hover {
+    background: #ff6b6b !important;
+    border-color: #ff6b6b !important;
+    color: #ffffff !important;
+}
+
+/* ===== BOTÓN DE CERRAR CARRITO ===== */
+.cart-close {
+    background: transparent;
     border: none;
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 600;
+    color: #ff6b6b;
+    font-size: 32px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
-    font-family: "Poppins", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    padding: 0 10px;
 }
 
-.btn-add-cart:hover {
-    background: #ab1c15;
-    transform: scale(1.05);
+.cart-close:hover {
+    color: #ff4500;
+    transform: rotate(90deg);
 }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .cart-panel {
-        width: 100%;
-        right: -100%;
-        max-width: 100vw;
-    }
-
-    .cart-float {
-        bottom: 20px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
-        font-size: 24px;
-    }
-
-    .cart-header h2 {
-        font-size: 18px;
-    }
-
-    .cart-item img {
-        width: 50px;
-        height: 50
