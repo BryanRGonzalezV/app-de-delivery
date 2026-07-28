@@ -101,6 +101,11 @@ function loadCart() {
 
 // Añadir producto al carrito
 function addToCart(name, price, img) {
+    if (!name || !price || !img) {
+        console.error('Faltan datos para añadir al carrito:', {name, price, img});
+        return;
+    }
+    
     const existingItem = cart.find(item => item.name === name);
     
     if (existingItem) {
@@ -158,7 +163,6 @@ function calculateTotal() {
 
 // Mostrar notificación
 function showNotification(message) {
-    // Crear elemento de notificación
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
@@ -181,7 +185,6 @@ function showNotification(message) {
     
     document.body.appendChild(notification);
     
-    // Eliminar después de 3 segundos
     setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => {
@@ -192,15 +195,12 @@ function showNotification(message) {
 
 // Actualizar la UI del carrito
 function updateCartUI() {
-    // Actualizar contador
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
     
-    // Actualizar total
     const total = calculateTotal();
     cartTotal.textContent = '$' + total.toFixed(2);
     
-    // Actualizar lista de items
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="cart-empty">🛒 El carrito está vacío</p>';
     } else {
@@ -214,10 +214,10 @@ function updateCartUI() {
                         <p class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
                     </div>
                     <div class="cart-item-actions">
-                        <button onclick="changeQuantity('${item.name}', -1)">−</button>
+                        <button onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
                         <span class="cart-item-qty">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.name}', 1)">+</button>
-                        <button class="cart-item-remove" onclick="removeFromCart('${item.name}')">✕</button>
+                        <button onclick="changeQuantity('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+                        <button class="cart-item-remove" onclick="removeFromCart('${item.name.replace(/'/g, "\\'")}')">✕</button>
                     </div>
                 </div>
             `;
@@ -261,32 +261,52 @@ checkoutBtn.addEventListener('click', function() {
     closeCart();
 });
 
-// ===== BOTONES DE PRODUCTOS =====
+// ============================================================
+// ===== BOTONES DE PRODUCTOS - CORREGIDO CON CLOSEST() ======
+// ============================================================
 
-// Añadir al carrito desde productos
+// 1. Botones "Añadir al Carrito" - SOLUCIÓN: usar closest()
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('btn-add-cart')) {
-        const name = e.target.getAttribute('data-name');
-        const price = e.target.getAttribute('data-price');
-        const img = e.target.getAttribute('data-img');
-        addToCart(name, price, img);
-    }
-});
-
-// Botones "Comprar" del slider
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('btn-comprar')) {
+    // Busca el botón más cercano con la clase btn-add-cart
+    const button = e.target.closest('.btn-add-cart');
+    if (button) {
         e.preventDefault();
-        const name = e.target.getAttribute('data-name');
-        const price = e.target.getAttribute('data-price');
-        const img = e.target.getAttribute('data-img');
-        addToCart(name, price, img);
+        const name = button.getAttribute('data-name');
+        const price = button.getAttribute('data-price');
+        const img = button.getAttribute('data-img');
+        
+        // Verificar que todos los datos existan
+        if (name && price && img) {
+            addToCart(name, price, img);
+        } else {
+            console.error('❌ Botón sin datos:', button);
+            showNotification('⚠️ Error: faltan datos del producto');
+        }
     }
 });
 
-// Botones "Menú" del slider - scroll suave
+// 2. Botones "Comprar" del slider - SOLUCIÓN: usar closest()
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('btn-1') && e.target.getAttribute('href') === '#products') {
+    const button = e.target.closest('.btn-comprar');
+    if (button) {
+        e.preventDefault();
+        const name = button.getAttribute('data-name');
+        const price = button.getAttribute('data-price');
+        const img = button.getAttribute('data-img');
+        
+        if (name && price && img) {
+            addToCart(name, price, img);
+        } else {
+            console.error('❌ Botón comprar sin datos:', button);
+            showNotification('⚠️ Error: faltan datos del producto');
+        }
+    }
+});
+
+// 3. Botones "Menú" - scroll suave
+document.addEventListener('click', function(e) {
+    const button = e.target.closest('.btn-1');
+    if (button && button.getAttribute('href') === '#products') {
         e.preventDefault();
         const productsSection = document.getElementById('products');
         if (productsSection) {
@@ -326,3 +346,6 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+console.log('🛒 Carrito de compras cargado correctamente');
+console.log('📦 Productos disponibles: 9');
