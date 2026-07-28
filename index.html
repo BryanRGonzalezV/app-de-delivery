@@ -3,42 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Tienda</title>
+    <title>Food Delivery - Carrito</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="style.css">
-   <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <!-- Botón flotante del carrito -->
-    <div id="cartToggle" class="cart-float">
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cartCount" class="cart-badge">0</span>
-    </div>
-
-    <!-- Panel lateral del carrito -->
-    <div id="cartPanel" class="cart-panel">
-        <div class="cart-header">
-            <h2>🛒 Mi Carrito</h2>
-            <button id="closeCart" class="cart-close">&times;</button>
-        </div>
-        <div id="cartItems" class="cart-items">
-            <p class="cart-empty">El carrito está vacío</p>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">$0.00</span>
-            </div>
-            <button id="checkoutBtn" class="btn-checkout">Proceder al Pago</button>
-            <button id="clearCart" class="btn-clear">Vaciar Carrito</button>
-        </div>
-    </div>
-
-    <!-- Overlay para cerrar el carrito -->
-    <div id="cartOverlay" class="cart-overlay"></div>
 
     <header>
         <div class="menu container">
@@ -52,30 +24,18 @@
                     <ul>
                         <li><a href="#">Inicio</a></li>
                         <li><a href="#">Servicios</a></li>
-                        <li><a href="#products">Productos</a></li>
+                        <li><a href="#">Productos</a></li>
                     </ul>
                 </div>
                 <img class="logo-2" src="images/logo.svg" alt="">
                 <div class="menu-2">
                     <ul>
-                        <li><a href="#horario">Horario</a></li>
+                        <li><a href="#">Horario</a></li>
                     </ul>
                     <div class="socials">
-                        <a href="#">
-                            <div class="social">
-                                <img src="images/s1.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="social">
-                                <img src="images/s2.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="social">
-                                <img src="images/s3.svg" alt="">
-                            </div>
-                        </a>
+                        <a href="#"><div class="social"><img src="images/s1.svg" alt=""></div></a>
+                        <a href="#"><div class="social"><img src="images/s2.svg" alt=""></div></a>
+                        <a href="#"><div class="social"><img src="images/s3.svg" alt=""></div></a>
                     </div>
                 </div>
             </nav>
@@ -84,19 +44,14 @@
         <div class="header-content container">
             <div class="swiper mySwiper-1">
                 <div class="swiper-wrapper">
-                    <!-- Slide 1 -->
                     <div class="swiper-slide">
                         <div class="slider">
                             <div class="slider-txt">
                                 <h1>Hamburguesa 1</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Officiis, error ad illum labore corporis quis sapiente ducimus expedita eius minima repellendus asperiores, 
-                                    dolorum voluptatibus sed! Dolorem sint quia maxime ipsum.
-                                </p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, error ad illum labore corporis quis sapiente ducimus expedita eius minima repellendus asperiores, dolorum voluptatibus sed! Dolorem sint quia maxime ipsum.</p>
                                 <div class="botones">
-                                    <a href="#" class="btn-1 btn-comprar" data-name="Hamburguesa 1" data-price="100.00" data-img="images/slider1.png">Comprar</a>
-                                    <a href="#products" class="btn-1">Menú</a>
+                                    <a href="#" class="btn-1">Comprar</a>
+                                    <a href="#" class="btn-1">Menú</a>
                                 </div>
                             </div>
                             <div class="slider-img">
@@ -104,19 +59,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Slide 2 -->
                     <div class="swiper-slide">
                         <div class="slider">
                             <div class="slider-txt">
                                 <h1>Hamburguesa 2</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Officiis, error ad illum labore corporis quis sapiente ducimus expedita eius minima repellendus asperiores, 
-                                    dolorum voluptatibus sed! Dolorem sint quia maxime ipsum.
-                                </p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, error ad illum labore corporis quis sapiente ducimus expedita eius minima repellendus asperiores, dolorum voluptatibus sed! Dolorem sint quia maxime ipsum.</p>
                                 <div class="botones">
-                                    <a href="#" class="btn-1 btn-comprar" data-name="Hamburguesa 2" data-price="100.00" data-img="images/slider2.png">Comprar</a>
-                                    <a href="#products" class="btn-1">Menú</a>
+                                    <a href="#" class="btn-1">Comprar</a>
+                                    <a href="#" class="btn-1">Menú</a>
                                 </div>
                             </div>
                             <div class="slider-img">
@@ -124,19 +74,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Slide 3 -->
                     <div class="swiper-slide">
                         <div class="slider">
                             <div class="slider-txt">
                                 <h1>Hamburguesa 3</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                    Officiis, error ad illum labore corporis quis sapiente ducimus expedita eius minima repellendus asperiores, 
-                                    dolorum voluptatibus sed! Dolorem sint quia maxime ipsum.
-                                </p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, error ad illum labore corporis quis sapiente ducimus expedita eius minima repellendus asperiores, dolorum voluptatibus sed! Dolorem sint quia maxime ipsum.</p>
                                 <div class="botones">
-                                    <a href="#" class="btn-1 btn-comprar" data-name="Hamburguesa 3" data-price="100.00" data-img="images/slider3.png">Comprar</a>
-                                    <a href="#products" class="btn-1">Menú</a>
+                                    <a href="#" class="btn-1">Comprar</a>
+                                    <a href="#" class="btn-1">Menú</a>
                                 </div>
                             </div>
                             <div class="slider-img">
@@ -152,53 +97,52 @@
         </div>
     </header>
 
-    <main class="products" id="products">
+    <main class="products">
         <div class="tabs container">
-            <!-- Tab 1: Hamburguesas -->
             <input type="radio" name="tabs" id="tab1" checked="checked" class="tabInput" value="1">
             <label for="tab1">Hamburguesas</label>
             <div class="tab">
                 <div class="swiper mySwiper-2" id="swiper1">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Hamburguesa Clásica" data-price="100.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food1.png" alt="Producto 1">
+                                    <img src="images/food1.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Hamburguesa 1</h4>
+                                    <h4>Hamburguesa Clásica</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Hamburguesa 1" data-price="100.00" data-img="images/food1.png">Añadir al Carrito</button>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Hamburguesa Doble" data-price="120.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food2.png" alt="Producto 2">
+                                    <img src="images/food2.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Hamburguesa 2</h4>
+                                    <h4>Hamburguesa Doble</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$120.00</span>
-                                    <button class="btn-add-cart" data-name="Hamburguesa 2" data-price="120.00" data-img="images/food2.png">Añadir al Carrito</button>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Hamburguesa BBQ" data-price="110.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food3.png" alt="Producto 3">
+                                    <img src="images/food3.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Hamburguesa 3</h4>
+                                    <h4>Hamburguesa BBQ</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$110.00</span>
-                                    <button class="btn-add-cart" data-name="Hamburguesa 3" data-price="110.00" data-img="images/food3.png">Añadir al Carrito</button>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -208,51 +152,50 @@
                 </div>
             </div>
 
-            <!-- Tab 2: Tacos -->
             <input type="radio" name="tabs" id="tab2" class="tabInput" value="2">
             <label for="tab2">Tacos</label>
             <div class="tab">
                 <div class="swiper mySwiper-2" id="swiper2">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Taco de Carne" data-price="80.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food4.png" alt="Producto 4">
+                                    <img src="images/food4.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Taco 1</h4>
+                                    <h4>Taco de Carne</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$80.00</span>
-                                    <button class="btn-add-cart" data-name="Taco 1" data-price="80.00" data-img="images/food4.png">Añadir al Carrito</button>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Taco de Pollo" data-price="75.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food5.png" alt="Producto 5">
+                                    <img src="images/food5.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Taco 2</h4>
+                                    <h4>Taco de Pollo</h4>
+                                    <p>Calidad Premium</p>
+                                    <span class="price">$75.00</span>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product" data-name="Taco de Pescado" data-price="90.00">
+                                <div class="product-img">
+                                    <h4>Nuevo</h4>
+                                    <img src="images/food6.png" alt="">
+                                </div>
+                                <div class="product-txt">
+                                    <h4>Taco de Pescado</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$90.00</span>
-                                    <button class="btn-add-cart" data-name="Taco 2" data-price="90.00" data-img="images/food5.png">Añadir al Carrito</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product">
-                                <div class="product-img">
-                                    <h4>Nuevo</h4>
-                                    <img src="images/food6.png" alt="Producto 6">
-                                </div>
-                                <div class="product-txt">
-                                    <h4>Taco 3</h4>
-                                    <p>Calidad Premium</p>
-                                    <span class="price">$85.00</span>
-                                    <button class="btn-add-cart" data-name="Taco 3" data-price="85.00" data-img="images/food6.png">Añadir al Carrito</button>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -262,51 +205,50 @@
                 </div>
             </div>
 
-            <!-- Tab 3: Variedades -->
             <input type="radio" name="tabs" id="tab3" class="tabInput" value="3">
             <label for="tab3">Variedades</label>
             <div class="tab">
                 <div class="swiper mySwiper-2" id="swiper3">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Papas Fritas" data-price="60.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food7.png" alt="Producto 7">
+                                    <img src="images/food7.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Variedad 1</h4>
+                                    <h4>Papas Fritas</h4>
                                     <p>Calidad Premium</p>
-                                    <span class="price">$150.00</span>
-                                    <button class="btn-add-cart" data-name="Variedad 1" data-price="150.00" data-img="images/food7.png">Añadir al Carrito</button>
+                                    <span class="price">$60.00</span>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Aros de Cebolla" data-price="65.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food8.png" alt="Producto 8">
+                                    <img src="images/food8.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Variedad 2</h4>
+                                    <h4>Aros de Cebolla</h4>
                                     <p>Calidad Premium</p>
-                                    <span class="price">$160.00</span>
-                                    <button class="btn-add-cart" data-name="Variedad 2" data-price="160.00" data-img="images/food8.png">Añadir al Carrito</button>
+                                    <span class="price">$65.00</span>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
-                            <div class="product">
+                            <div class="product" data-name="Nachos" data-price="70.00">
                                 <div class="product-img">
                                     <h4>Nuevo</h4>
-                                    <img src="images/food9.png" alt="Producto 9">
+                                    <img src="images/food9.png" alt="">
                                 </div>
                                 <div class="product-txt">
-                                    <h4>Variedad 3</h4>
+                                    <h4>Nachos</h4>
                                     <p>Calidad Premium</p>
-                                    <span class="price">$140.00</span>
-                                    <button class="btn-add-cart" data-name="Variedad 3" data-price="140.00" data-img="images/food9.png">Añadir al Carrito</button>
+                                    <span class="price">$70.00</span>
+                                    <button class="add-to-cart btn-1" style="margin-top: 10px; font-size: 12px; padding: 8px 20px;">Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -323,22 +265,18 @@
             <img src="images/info.png" alt="">
         </div>
         <div class="info-txt">
-            <h2>Informacion</h2>
-            <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus itaque, dolor repellendus dolorem aut tenetur! Fuga consequatur similique quisquam, 
-                nisi eos est at doloremque saepe possimus voluptates dignissimos, 
-                error neque.
-            </p>
-            <a href="#" class="btn-2">Mas Informacion</a>
+            <h2>Información</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus itaque, dolor repellendus dolorem aut tenetur! Fuga consequatur similique quisquam, nisi eos est at doloremque saepe possimus voluptates dignissimos, error neque.</p>
+            <a href="#" class="btn-2">Más Información</a>
         </div>
     </section>
 
-    <section class="horario" id="horario">
+    <section class="horario">
         <div class="horario-info container">
             <h2>Horario</h2>
             <div class="horario-txt">
                 <div class="txt">
-                    <h4>Direccion</h4>
+                    <h4>Dirección</h4>
                     <p>lemo ration naadf</p>
                     <p>loma mirandi</p>
                 </div>
@@ -348,28 +286,16 @@
                     <p>Sabado y Domingo : 11 am - 7pm</p>
                 </div>
                 <div class="txt">
-                    <h4>Telefono</h4>
+                    <h4>Teléfono</h4>
                     <p>908089980i0</p>
                     <p>8797090098</p>
                 </div>
                 <div class="txt">
                     <h4>Redes Sociales</h4>
                     <div class="socials">
-                        <a href="#">
-                            <div class="social">
-                                <img src="images/s1.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="social">
-                                <img src="images/s2.svg" alt="">
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="social">
-                                <img src="images/s3.svg" alt="">
-                            </div>
-                        </a>
+                        <a href="#"><div class="social"><img src="images/s1.svg" alt=""></div></a>
+                        <a href="#"><div class="social"><img src="images/s2.svg" alt=""></div></a>
+                        <a href="#"><div class="social"><img src="images/s3.svg" alt=""></div></a>
                     </div>
                 </div>
             </div>
@@ -412,43 +338,31 @@
         <div class="links">
             <h4>lorem</h4>
             <div class="socials">
-                <a href="#">
-                    <div class="social">
-                        <img src="images/s1.svg" alt="">
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="social">
-                        <img src="images/s2.svg" alt="">
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="social">
-                        <img src="images/s3.svg" alt="">
-                    </div>
-                </a>
+                <a href="#"><div class="social"><img src="images/s1.svg" alt=""></div></a>
+                <a href="#"><div class="social"><img src="images/s2.svg" alt=""></div></a>
+                <a href="#"><div class="social"><img src="images/s3.svg" alt=""></div></a>
             </div>
         </div>
 
         <div>
             <section id="contact" class="py-16 md:py-24 bg-indigo-50">
                 <div class="container mx-auto px-6">
-                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Contactanos!</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">Contáctanos!</h2>
                     <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-xl">
                         <form id="contactForm">
                             <div class="mb-6">
-                                <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Nombre Completo</label>
                                 <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-shadow" placeholder="John Doe" required>
                             </div>
                             <div class="mb-6">
-                                <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Correo Electrónico</label>
                                 <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-shadow" placeholder="you@example.com" required>
                             </div>
                             <div class="mb-6">
-                                <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
-                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-shadow" placeholder="Your message..." required></textarea>
+                                <label for="message" class="block text-gray-700 font-medium mb-2">Mensaje</label>
+                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-shadow" placeholder="Tu mensaje..." required></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105">Send Message</button>
+                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105">Enviar Mensaje</button>
                         </form>
                         <p id="form-response" class="mt-4 text-center"></p>
                     </div>
@@ -456,6 +370,77 @@
             </section>
         </div>
     </footer>
+
+    <!-- CARRITO LATERAL -->
+    <div id="cartOverlay" class="cart-overlay">
+        <div id="cartSidebar" class="cart-sidebar">
+            <div class="cart-header">
+                <h2>🛒 Carrito</h2>
+                <button id="closeCart" class="close-cart">✕</button>
+            </div>
+            <div id="cartItems" class="cart-items">
+                <p class="empty-cart-msg">El carrito está vacío</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button id="checkoutBtn" class="btn-1 checkout-btn">Comprar Ahora</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <button id="cartFloatBtn" class="cart-float-btn">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCount" class="cart-count">0</span>
+    </button>
+
+    <!-- MODAL DE COMPRA -->
+    <div id="checkoutModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Datos de Envío</h2>
+                <button id="closeModal" class="close-modal">✕</button>
+            </div>
+            <div id="checkoutFormContainer">
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="dirNombre">Nombre Completo</label>
+                        <input type="text" id="dirNombre" placeholder="Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dirCalle">Calle y Número</label>
+                        <input type="text" id="dirCalle" placeholder="Av. Principal #123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dirCiudad">Ciudad</label>
+                        <input type="text" id="dirCiudad" placeholder="Santo Domingo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dirTelefono">Teléfono</label>
+                        <input type="text" id="dirTelefono" placeholder="809-555-1234" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dirNotas">Notas adicionales</label>
+                        <textarea id="dirNotas" rows="2" placeholder="Indicaciones para la entrega..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-1" style="width:100%; text-align:center;">Confirmar Compra</button>
+                </form>
+            </div>
+            <div id="orderConfirmation" style="display:none;">
+                <div class="confirmation-icon">✅</div>
+                <h3>¡Pedido Confirmado!</h3>
+                <div id="orderDetails" class="order-details"></div>
+                <div class="waiting-time">
+                    <i class="fas fa-clock"></i>
+                    <span>Tiempo estimado de espera: <strong>20-30 minutos</strong></span>
+                </div>
+                <button id="closeConfirmBtn" class="btn-1" style="margin-top:20px;">Cerrar</button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
