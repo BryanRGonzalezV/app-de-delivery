@@ -318,4 +318,27 @@ confirmModal.addEventListener('click', (e) => {
     }
 });
 
+// ===================== BOTÓN COMPRAR DEL SLIDER =====================
+document.querySelectorAll('.btn-buy-slider').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const name = this.dataset.name;
+        const price = parseFloat(this.dataset.price);
+        const img = this.dataset.img;
+
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name, price, img, quantity: 1 });
+        }
+
+        updateCartUI();
+        showNotification(`${name} añadido al carrito!`);
+        cartPanel.classList.add('active');
+    });
+});
+
 // ================================================================
