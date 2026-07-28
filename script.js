@@ -156,11 +156,49 @@ function calculateTotal() {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 }
 
+// Mostrar notificación
+function showNotification(message) {
+    // Crear elemento de notificación
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        background: #0d0d0d;
+        color: #ffffff;
+        padding: 15px 25px;
+        border-radius: 10px;
+        border-left: 4px solid #db2418;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        z-index: 99999;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Eliminar después de 3 segundos
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
 // Actualizar la UI del carrito
 function updateCartUI() {
     // Actualizar contador
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
+    
+    // Actualizar total
+    const total = calculateTotal();
+    cartTotal.textContent = '$' + total.toFixed(2);
     
     // Actualizar lista de items
     if (cart.length === 0) {
@@ -175,4 +213,116 @@ function updateCartUI() {
                         <p class="cart-item-name">${item.name}</p>
                         <p class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</p>
                     </div>
-                    <div class
+                    <div class="cart-item-actions">
+                        <button onclick="changeQuantity('${item.name}', -1)">−</button>
+                        <span class="cart-item-qty">${item.quantity}</span>
+                        <button onclick="changeQuantity('${item.name}', 1)">+</button>
+                        <button class="cart-item-remove" onclick="removeFromCart('${item.name}')">✕</button>
+                    </div>
+                </div>
+            `;
+        });
+        cartItemsContainer.innerHTML = html;
+    }
+}
+
+// ===== EVENTOS DEL CARRITO =====
+
+// Abrir carrito
+cartToggle.addEventListener('click', function() {
+    cartPanel.classList.add('active');
+    cartOverlay.classList.add('active');
+});
+
+// Cerrar carrito
+function closeCart() {
+    cartPanel.classList.remove('active');
+    cartOverlay.classList.remove('active');
+}
+
+closeCartBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+// Vaciar carrito
+clearCartBtn.addEventListener('click', clearCart);
+
+// Checkout
+checkoutBtn.addEventListener('click', function() {
+    if (cart.length === 0) {
+        showNotification('⚠️ El carrito está vacío');
+        return;
+    }
+    
+    const total = calculateTotal();
+    showNotification('🎉 ¡Compra realizada! Total: $' + total.toFixed(2));
+    cart = [];
+    saveCart();
+    updateCartUI();
+    closeCart();
+});
+
+// ===== BOTONES DE PRODUCTOS =====
+
+// Añadir al carrito desde productos
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn-add-cart')) {
+        const name = e.target.getAttribute('data-name');
+        const price = e.target.getAttribute('data-price');
+        const img = e.target.getAttribute('data-img');
+        addToCart(name, price, img);
+    }
+});
+
+// Botones "Comprar" del slider
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn-comprar')) {
+        e.preventDefault();
+        const name = e.target.getAttribute('data-name');
+        const price = e.target.getAttribute('data-price');
+        const img = e.target.getAttribute('data-img');
+        addToCart(name, price, img);
+    }
+});
+
+// Botones "Menú" del slider - scroll suave
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('btn-1') && e.target.getAttribute('href') === '#products') {
+        e.preventDefault();
+        const productsSection = document.getElementById('products');
+        if (productsSection) {
+            productsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+});
+
+// ===== INICIALIZACIÓN =====
+
+// Cargar carrito al iniciar
+loadCart();
+
+// Añadir estilos de animación para notificaciones
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
