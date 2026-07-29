@@ -51,7 +51,9 @@ tabInputs.forEach(function(input){
 input.addEventListener("change", function (){
     let id= input.ariaValueMax;
     let thisSwiper = document.getElementById("swiper" + id);
-    thisSwiper.swiper.update();
+    if (thisSwiper && thisSwiper.swiper) {
+        thisSwiper.swiper.update();
+    }
 
 
 })
@@ -59,31 +61,23 @@ input.addEventListener("change", function (){
 
 }); 
 
-        const contactForm = document.getElementById('contactForm');
-        const formResponse = document.getElementById('form-response');
+const contactForm = document.getElementById('contactForm');
+const formResponse = document.getElementById('form-response');
 
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent default form submission
+if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-                // Get form data (optional, for more complex handling)
-                // const formData = new FormData(contactForm);
-                // const name = formData.get('name');
-                // const email = formData.get('email');
-                // const message = formData.get('message');
-                // console.log('Form submitted:', { name, email, message });
+        formResponse.textContent = 'Thank you for your message! We will get back to you soon.';
+        formResponse.className = 'mt-4 text-center text-green-600 font-medium';
+        contactForm.reset();
 
-                formResponse.textContent = 'Thank you for your message! We will get back to you soon.';
-                formResponse.className = 'mt-4 text-center text-green-600 font-medium'; // Success message style
-                contactForm.reset(); // Clear the form
-
-                // Remove the message after a few seconds
-                setTimeout(() => {
-                    formResponse.textContent = '';
-                    formResponse.className = 'mt-4 text-center';
-                }, 5000);
-            });
-        }
+        setTimeout(() => {
+            formResponse.textContent = '';
+            formResponse.className = 'mt-4 text-center';
+        }, 5000);
+    });
+}
 
 // ==================== CARRITO DE COMPRAS ====================
 
@@ -133,7 +127,7 @@ function updateCart() {
         html += `
             <div class="cart-item">
                 <span class="cart-item-name">${item.name}</span>
-                <span class="cart-item-price">$${item.price}</span>
+                <span class="cart-item-price">$${parseFloat(item.price).toFixed(2)}</span>
                 <button class="cart-item-remove" data-index="${index}">
                     <i class="fas fa-times"></i>
                 </button>
@@ -156,8 +150,26 @@ function updateCart() {
 
 // Función para agregar al carrito
 function addToCart(name, price) {
-    cart.push({ name, price });
+    // Verificar si el producto ya está en el carrito
+    const existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+        // Si ya existe, mostrar mensaje
+        const btn = document.querySelector(`.btn-add-cart[data-name="${name}"]`);
+        if (btn) {
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Ya está en el carrito';
+            btn.style.backgroundColor = '#28a745';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.backgroundColor = '';
+            }, 1500);
+        }
+        return;
+    }
+    
+    cart.push({ name, price: parseFloat(price) });
     updateCart();
+    
     // Animación del botón del carrito
     cartButton.style.transform = 'scale(1.2)';
     setTimeout(() => {
@@ -172,35 +184,38 @@ document.querySelectorAll('.btn-add-cart').forEach(btn => {
         const name = this.dataset.name;
         const price = this.dataset.price;
         addToCart(name, price);
-        
-        // Feedback visual
-        const originalText = this.textContent;
-        this.textContent = '✓ Añadido';
-        this.style.backgroundColor = '#28a745';
-        setTimeout(() => {
-            this.textContent = originalText;
-            this.style.backgroundColor = '';
-        }, 1500);
     });
 });
 
 // Abrir carrito
 cartButton.addEventListener('click', function() {
     cartModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 });
 
 // Cerrar carrito
 closeCart.addEventListener('click', function() {
     cartModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 });
 
 // Cerrar carrito al hacer clic fuera
 window.addEventListener('click', function(e) {
     if (e.target === cartModal) {
         cartModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
     if (e.target === checkoutModal) {
         checkoutModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    if (e.target === orderModal) {
+        orderModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        // Resetear timer
+        timerDisplay.textContent = '30';
+        timerProgress.style.width = '100%';
+        timerProgress.style.backgroundColor = '#db2418';
     }
 });
 
@@ -209,11 +224,13 @@ checkoutBtn.addEventListener('click', function() {
     if (cart.length === 0) return;
     cartModal.style.display = 'none';
     checkoutModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 });
 
 // Cerrar checkout
 closeCheckout.addEventListener('click', function() {
     checkoutModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 });
 
 // Procesar pedido
@@ -238,7 +255,7 @@ checkoutForm.addEventListener('submit', function(e) {
     // Lista de productos
     orderHtml += '<div class="order-products"><strong>Productos:</strong><ul>';
     cart.forEach(item => {
-        orderHtml += `<li>${item.name} - $${item.price}</li>`;
+        orderHtml += `<li>${item.name} - $${item.price.toFixed(2)}</li>`;
     });
     orderHtml += '</ul></div>';
     
@@ -248,11 +265,13 @@ checkoutForm.addEventListener('submit', function(e) {
     
     orderDetails.innerHTML = orderHtml;
     orderModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
     
     // Iniciar temporizador
     let timeLeft = 30;
     timerDisplay.textContent = timeLeft;
     timerProgress.style.width = '100%';
+    timerProgress.style.backgroundColor = '#db2418';
     
     const timerInterval = setInterval(() => {
         timeLeft--;
@@ -267,49 +286,31 @@ checkoutForm.addEventListener('submit', function(e) {
         }
     }, 1000);
     
+    // Guardar el intervalo para limpiarlo al cerrar
+    window.currentTimer = timerInterval;
+    
     // Vaciar carrito
     cart = [];
     updateCart();
+    
+    // Limpiar formulario
+    document.getElementById('address').value = '';
+    document.getElementById('city').value = '';
+    document.getElementById('postal').value = '';
 });
 
 // Cerrar modal de pedido
 closeOrder.addEventListener('click', function() {
     orderModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
     // Resetear timer
     timerDisplay.textContent = '30';
     timerProgress.style.width = '100%';
     timerProgress.style.backgroundColor = '#db2418';
+    if (window.currentTimer) {
+        clearInterval(window.currentTimer);
+    }
 });
 
 // Inicializar carrito
 updateCart();
-
-// Estilos para el timer (añadidos dinámicamente)
-const style = document.createElement('style');
-style.textContent = `
-    .timer-bar {
-        width: 100%;
-        height: 8px;
-        background-color: #ddd;
-        border-radius: 4px;
-        margin-top: 10px;
-        overflow: hidden;
-    }
-    .timer-progress {
-        height: 100%;
-        background-color: #db2418;
-        border-radius: 4px;
-        transition: width 1s linear;
-        width: 100%;
-    }
-    .order-timer {
-        margin: 20px 0;
-        text-align: center;
-    }
-    #timerDisplay {
-        font-size: 24px;
-        font-weight: bold;
-        color: #db2418;
-    }
-`;
-document.head.appendChild(style);
