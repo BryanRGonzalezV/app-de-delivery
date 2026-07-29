@@ -1,49 +1,64 @@
 // Swiper inicialization
-var swiper = new Swiper(".mySwiper-1", {
-    slidesPerView: 1,
+var swiper = new Swiper(".mySwiper-1"  , {
+    slidesPerView:1,
     spaceBetween: 30,
-    loop: true,
+    loop:true,
     pagination: {
-        el: ".swiper-pagination",
+
+        el:".swiper-pagination",
         clickable: true,
     },
     navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    }
-});
+        nextEl:".swiper-button-next",
+        prevEl:".swiper-button-prev",
 
-var swiper = new Swiper(".mySwiper-2", {
-    slidesPerView: 1,
+    }
+
+
+
+}) ;
+
+var swiper = new Swiper(".mySwiper-2"  , {
+    slidesPerView:1,
     spaceBetween: 20,
-    loop: true,
-    loopFillGroupWithBlank: true,
+    loop:true,
+    loopFillGroupWithBlank:true,
     navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+        nextEl:".swiper-button-next",
+        prevEl:".swiper-button-prev",
+
     },
-    breakpoints: {
+
+    breakpoints : {
         0: {
-            slidesPerView: 1,
+            slidesPerView:1,
         },
         520: {
-            slidesPerView: 2,
+            slidesPerView:2,
         },
         950: {
-            slidesPerView: 3,
+            slidesPerView:3,
         }
     }
-});
 
-let tabInputs = document.querySelectorAll(".tabInput");
 
-tabInputs.forEach(function(input) {
-    input.addEventListener("change", function() {
-        let id = input.ariaValueMax;
-        let thisSwiper = document.getElementById("swiper" + id);
-        thisSwiper.swiper.update();
-    });
-});
+
+}) ;
+
+let tabInputs = document.querySelectorAll (".tabInput");
+
+tabInputs.forEach(function(input){ 
+
+input.addEventListener("change", function (){
+    let id= input.ariaValueMax;
+    let thisSwiper = document.getElementById("swiper" + id);
+    thisSwiper.swiper.update();
+
+
+})
+
+
+}); 
 
 // Contact form
 const contactForm = document.getElementById('contactForm');
@@ -105,7 +120,28 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Función para actualizar la UI del carrito
+// Añadir producto al carrito
+document.querySelectorAll('.btn-add-cart').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const name = button.dataset.name;
+        const price = parseFloat(button.dataset.price);
+        const img = button.dataset.img;
+
+        // Verificar si el producto ya está en el carrito
+        const existingItem = cart.find(item => item.name === name);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name, price, img, quantity: 1 });
+        }
+
+        updateCartUI();
+        showNotification(`${name} añadido al carrito!`);
+    });
+});
+
+// Actualizar UI del carrito
 function updateCartUI() {
     // Actualizar contador
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -130,38 +166,14 @@ function updateCartUI() {
             <img src="${item.img}" alt="${item.name}" class="cart-item-img">
             <div class="cart-item-info">
                 <h4>${item.name}</h4>
-                <div class="cart-item-controls">
-                    <button class="cart-qty-btn" data-index="${index}" data-action="minus">-</button>
-                    <span class="cart-qty">${item.quantity}</span>
-                    <button class="cart-qty-btn" data-index="${index}" data-action="plus">+</button>
-                    <span class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
-                </div>
+                <span>$${item.price.toFixed(2)} x ${item.quantity}</span>
+                <span class="cart-item-total">$${itemTotal.toFixed(2)}</span>
             </div>
             <button class="cart-remove" data-index="${index}">
                 <i class="fas fa-trash-alt"></i>
             </button>
         `;
         cartItems.appendChild(div);
-    });
-
-    // Eventos para botones de cantidad (+ y -)
-    document.querySelectorAll('.cart-qty-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const index = parseInt(btn.dataset.index);
-            const action = btn.dataset.action;
-            
-            if (action === 'plus') {
-                cart[index].quantity += 1;
-            } else if (action === 'minus') {
-                if (cart[index].quantity > 1) {
-                    cart[index].quantity -= 1;
-                } else {
-                    cart.splice(index, 1);
-                }
-            }
-            updateCartUI();
-        });
     });
 
     // Eventos para eliminar items
@@ -175,44 +187,6 @@ function updateCartUI() {
 
     cartTotal.textContent = `$${total.toFixed(2)}`;
 }
-
-// Añadir producto al carrito
-function addToCart(name, price, img) {
-    const existingItem = cart.find(item => item.name === name);
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ name, price, img, quantity: 1 });
-    }
-    updateCartUI();
-    showNotification(`${name} añadido al carrito!`);
-}
-
-// Evento para botones de productos (pestañas)
-document.querySelectorAll('.btn-add-cart').forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const name = button.dataset.name;
-        const price = parseFloat(button.dataset.price);
-        const img = button.dataset.img;
-        addToCart(name, price, img);
-    });
-});
-
-// Evento para botones "Comprar" del slider
-document.querySelectorAll('.btn-buy-slider').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const name = this.dataset.name;
-        const price = parseFloat(this.dataset.price);
-        const img = this.dataset.img;
-        
-        addToCart(name, price, img);
-        cartPanel.classList.add('active');
-    });
-});
 
 // Notificación temporal
 function showNotification(message) {
@@ -267,7 +241,10 @@ addressForm.addEventListener('submit', (e) => {
         return;
     }
 
+    // Cerrar modal de dirección
     addressModal.classList.remove('active');
+
+    // Mostrar confirmación
     showConfirmation({ name, street, city, phone });
 });
 
@@ -319,6 +296,7 @@ function showConfirmation(address) {
     cart = [];
     updateCartUI();
 
+    // Guardar referencia al intervalo para limpiarlo
     confirmModal._timerInterval = timerInterval;
 }
 
@@ -339,3 +317,5 @@ confirmModal.addEventListener('click', (e) => {
         confirmModal.classList.remove('active');
     }
 });
+
+// ================================================================
