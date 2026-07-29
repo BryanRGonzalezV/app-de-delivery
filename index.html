@@ -176,7 +176,7 @@
                                     <h4>Producto 1</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 1" data-price="100.00" data-img="images/food1.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 1" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -194,7 +194,7 @@
                                     <h4>Producto 2</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 2" data-price="100.00" data-img="images/food2.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 2" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -212,7 +212,7 @@
                                     <h4>Producto 3</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 3" data-price="100.00" data-img="images/food3.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 3" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -245,7 +245,7 @@
                                     <h4>Producto 4</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 4" data-price="100.00" data-img="images/food4.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 4" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -263,7 +263,7 @@
                                     <h4>Producto 5</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 5" data-price="100.00" data-img="images/food5.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 5" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -281,7 +281,7 @@
                                     <h4>Producto 6</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 6" data-price="100.00" data-img="images/food6.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 6" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -314,7 +314,7 @@
                                     <h4>Producto 7</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 7" data-price="100.00" data-img="images/food7.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 7" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -332,7 +332,7 @@
                                     <h4>Producto 8</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 8" data-price="100.00" data-img="images/food8.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 8" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -350,7 +350,7 @@
                                     <h4>Producto 9</h4>
                                     <p>Calidad Premium</p>
                                     <span class="price">$100.00</span>
-                                    <button class="btn-add-cart" data-name="Producto 9" data-price="100.00" data-img="images/food9.png">Añadir al Carrito</button>
+                                    <button class="btn-add-cart" data-name="Producto 9" data-price="100.00">Añadir al carrito</button>
                                 </div>
 
                             </div>
@@ -552,68 +552,68 @@
 
     </footer>
 
-    <!-- Botón flotante del carrito -->
-    <button id="cart-toggle" class="cart-btn">
+    <!-- Cart Button - Fixed Position -->
+    <div id="cartButton" class="cart-fixed">
         <i class="fas fa-shopping-cart"></i>
-        <span id="cart-count">0</span>
-    </button>
+        <span id="cartCount">0</span>
+    </div>
 
-    <!-- Panel del carrito -->
-    <div id="cart-panel" class="cart-panel">
-        <div class="cart-header">
-            <h3>Mi Carrito</h3>
-            <button id="cart-close" class="cart-close">&times;</button>
-        </div>
-        <div id="cart-items" class="cart-items"></div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cart-total">$0.00</span>
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>Carrito de Compras</h2>
+                <span id="closeCart" class="cart-close">&times;</span>
             </div>
-            <button id="cart-checkout" class="btn-checkout">Comprar Ahora</button>
+            <div id="cartItems" class="cart-items">
+                <p>El carrito está vacío</p>
+            </div>
+            <div id="cartTotal" class="cart-total">
+                <strong>Total: $0.00</strong>
+            </div>
+            <button id="checkoutBtn" class="btn-checkout">Comprar</button>
         </div>
     </div>
 
-    <!-- Modal de dirección -->
-    <div id="address-modal" class="address-modal">
-        <div class="address-modal-content">
-            <div class="address-modal-header">
-                <h3>Ingresa tu dirección</h3>
-                <button id="address-close" class="address-close">&times;</button>
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="checkout-modal">
+        <div class="checkout-modal-content">
+            <div class="checkout-modal-header">
+                <h2>Datos de Envío</h2>
+                <span id="closeCheckout" class="checkout-close">&times;</span>
             </div>
-            <form id="address-form">
+            <form id="checkoutForm">
                 <div class="form-group">
-                    <label for="address-name">Nombre Completo</label>
-                    <input type="text" id="address-name" placeholder="Juan Pérez" required>
+                    <label for="address">Dirección:</label>
+                    <input type="text" id="address" name="address" required placeholder="Calle, número, ciudad...">
                 </div>
                 <div class="form-group">
-                    <label for="address-street">Calle y Número</label>
-                    <input type="text" id="address-street" placeholder="Calle Principal #123" required>
+                    <label for="city">Ciudad:</label>
+                    <input type="text" id="city" name="city" required placeholder="Ciudad">
                 </div>
                 <div class="form-group">
-                    <label for="address-city">Ciudad</label>
-                    <input type="text" id="address-city" placeholder="Santo Domingo" required>
+                    <label for="postal">Código Postal:</label>
+                    <input type="text" id="postal" name="postal" required placeholder="Código postal">
                 </div>
-                <div class="form-group">
-                    <label for="address-phone">Teléfono</label>
-                    <input type="tel" id="address-phone" placeholder="809-555-1234" required>
-                </div>
-                <button type="submit" class="btn-submit-address">Confirmar Compra</button>
+                <button type="submit" class="btn-submit-order">Realizar Pedido</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal de confirmación -->
-    <div id="confirm-modal" class="confirm-modal">
-        <div class="confirm-modal-content">
-            <div class="confirm-modal-header">
-                <h3>✅ Pedido Confirmado</h3>
+    <!-- Order Confirmation Modal -->
+    <div id="orderModal" class="order-modal">
+        <div class="order-modal-content">
+            <div class="order-modal-header">
+                <h2>Pedido Confirmado</h2>
             </div>
-            <div id="confirm-details" class="confirm-details"></div>
-            <div id="confirm-timer" class="confirm-timer">
-                <p>Tiempo estimado de espera: <span id="timer-countdown">15:00</span></p>
+            <div id="orderDetails" class="order-details"></div>
+            <div id="orderTimer" class="order-timer">
+                <p>Tiempo de espera estimado: <span id="timerDisplay">30</span> minutos</p>
+                <div class="timer-bar">
+                    <div id="timerProgress" class="timer-progress"></div>
+                </div>
             </div>
-            <button id="confirm-close" class="btn-confirm-close">Cerrar</button>
+            <button id="closeOrder" class="btn-close-order">Cerrar</button>
         </div>
     </div>
 
